@@ -36,6 +36,7 @@ const Login = () => {
         {/* <input placeholder="Enter Your Name" {...register("name")} /> */}
         <input placeholder="Enter Your Email" {...register("email")} />
         <input
+          type="password"
           placeholder="Enter Your Password"
           {...register("password", { required: true })}
         />
