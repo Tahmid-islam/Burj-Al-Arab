@@ -6,7 +6,8 @@ import useAuth from "../../hooks/useAuth";
 import "./login.css";
 
 const Login = () => {
-  const { user, signInUsingGoogle } = useAuth();
+  const { signInUsingGoogle, signInUsingEmailAndPassword } = useAuth();
+
   const location = useLocation();
   const history = useHistory();
   const redirect_uri = location.state?.from || "/home";
@@ -22,20 +23,21 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    // console.log(data);
+    // createNewAccount(data.email, data.password, data.name);
+    signInUsingEmailAndPassword(data.email, data.password);
+  };
 
   return (
     <div className="login-form">
       <h1>Login</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
+        {/* <input placeholder="Enter Your Name" {...register("name")} /> */}
+        <input placeholder="Enter Your Email" {...register("email")} />
         <input
-          placeholder="Enter Your Name"
-          defaultValue={user?.displayName}
-          {...register("name")}
-        />
-        <input
-          placeholder="Enter Your Email"
-          {...register("email", { required: true })}
+          placeholder="Enter Your Password"
+          {...register("password", { required: true })}
         />
         {errors.email && <span>This field is required</span>}
         <input type="submit" />

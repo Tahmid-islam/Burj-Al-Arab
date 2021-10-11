@@ -4,6 +4,9 @@ import {
   signInWithPopup,
   signOut,
   onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
 import initializeAuthentication from "../Firebase/firebase.init";
@@ -24,6 +27,26 @@ const useFirebase = () => {
     });
   };
 
+  const signInUsingEmailAndPassword = (email, password) => {
+    signInWithEmailAndPassword(auth, email, password).then((result) => {
+      console.log(result);
+    });
+  };
+  // const createNewAccount = (email, password, name) => {
+  //   createUserWithEmailAndPassword(auth, email, password).then((result) => {
+  //     console.log(result);
+  //     setUserName(name);
+  //   });
+  // };
+
+  // const setUserName = (name) => {
+  //   updateProfile(auth.currentUser, {
+  //     displayName: name,
+  //   }).then((result) => {
+  //     console.log(result);
+  //   });
+  // };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -37,6 +60,7 @@ const useFirebase = () => {
     user,
     signInUsingGoogle,
     logOut,
+    signInUsingEmailAndPassword,
   };
 };
 
